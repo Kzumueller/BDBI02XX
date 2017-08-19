@@ -1,0 +1,47 @@
+/* 
+    Created on : 15-Aug-2017, 21:59:07
+    Author     : Kevin
+*/
+
+html {
+    font-family: "Arial";
+    background: #ddd;
+    color: #002;
+}
+
+table, tr {
+    border: 1px solid black;
+    border-collapse: collapse;
+    border-radius: 1px;
+}
+
+th, td {
+    padding: 0 10px;
+}
+
+input, textarea {
+    width: 100%;
+    background: #eee;
+}
+
+.response__container {
+    width: 25%;
+    margin: 0 0 50px 50px;
+}
+
+.response__container table {
+    width: 100%;
+}
+
+hr {
+    width: 100%;
+}
+
+.nav__button--bar {
+    display: flex;
+    width: 15%;
+}
+
+.nav__button--bar div {
+    flex: 1;
+}
