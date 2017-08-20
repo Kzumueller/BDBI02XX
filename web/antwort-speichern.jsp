@@ -4,4 +4,9 @@
     Author     : Kevin
 --%>
 
-<%@include file="beitrag-speichern.jsp" %>
+<%@page import="com.zumueller.Post"%>
+<% String backLinkId = request.getParameter(Post.RESPONSE_ID); %>
+
+<jsp:include page="savePost.jsp">
+    <jsp:param name="backLinkId" value="<%= backLinkId %>" />
+</jsp:include>

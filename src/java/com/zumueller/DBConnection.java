@@ -23,8 +23,9 @@ import java.util.Map;
  */
 public class DBConnection {
 
-    public final static String DRIVER = "db.driver";
     public final static String URL = "db.url";
+    public final static String USER = "db.user";
+    public final static String PASSWORD = "db.password";
 
     private Connection dbConnection = null;
     private PreparedStatement selectAllStatement = null;
@@ -45,6 +46,28 @@ public class DBConnection {
     }
 
     /**
+     *  method for setting up a DB connection
+     *
+     * @return java.sql.Connection
+     */
+    private Connection connect() {
+        Connection connection = null;
+        try {
+            String url = (String) Container.getContainer().get(URL);
+            String user = (String) Container.getContainer().get(USER);
+            String password = (String) Container.getContainer().get(PASSWORD);
+            connection = DriverManager.getConnection(url, user, password);
+
+        } catch (NoSuchEntryException exception) {
+            System.err.println("DB driver could not be loaded");
+        } catch (SQLException exception) {
+            System.err.println("Connection could not be established with message: " + exception.getMessage());
+        }
+
+        return connection;
+    }
+
+    /**
      * returns the stored prepared statement to select all posts, after preparing it if necessary
      * @return
      * @throws SQLException 
@@ -59,27 +82,7 @@ public class DBConnection {
 
         return selectAllStatement;
     }
-
-    /**
-     *  method for setting up a DB connection
-     *
-     * @return java.sql.Connection
-     */
-    private Connection connect() {
-        Connection connection = null;
-        try {
-            String url = (String) Container.getContainer().get(URL);
-            connection = DriverManager.getConnection(url, "root", "");
-
-        } catch (NoSuchEntryException exception) {
-            System.err.println(String.format("%s could not be loaded", DRIVER));
-        } catch (SQLException exception) {
-            System.err.println("Connection could not be established with message: " + exception.getMessage());
-        }
-
-        return connection;
-    }
-
+    
     /**
      * retrieves all posts and returns them hydrated as a list of
      * com.zumueller.Post
@@ -142,7 +145,7 @@ public class DBConnection {
         }
 
         try {
-            String sql = String.format("INSERT INTO %s(%s, %s, %s, %s, %s, %s, %s) VALUES (?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP())", 
+            String sql = String.format("INSERT INTO %s(%s, %s, %s, %s, %s, %s, %s) VALUES (?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)", 
                     Post.TABLE_NAME, Post.RESPONSE_ID, Post.IS_RESPONSE, Post.NAME, Post.EMAIL, Post.TITLE, Post.CONTENT, Post.TIMESTAMP);
             
             PreparedStatement statement = connection.prepareStatement(sql);

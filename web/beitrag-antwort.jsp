@@ -23,7 +23,7 @@
     <body>
         <h1>Auf Beitrag antworten</h1>
         
-        <form action="beitrag-speichern.jsp" method="POST">
+        <form action="antwort-speichern.jsp" method="POST">
             <input type="hidden" name="<%= Post.RESPONSE_ID %>" value="<%= originalPost.getId() %>">
             <input type="hidden" name="<%= Post.IS_RESPONSE %>" value="1">
             
