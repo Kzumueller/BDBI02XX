@@ -129,7 +129,7 @@ public class DBConnection {
 
     /**
      * extracts data from the provided Map and inserts it into the database
-     *
+     * uses parameterized SQL because SQL injections are bad
      * @param parameters
      * @return boolean
      */
@@ -142,7 +142,11 @@ public class DBConnection {
         }
 
         try {
-            PreparedStatement statement = connection.prepareStatement(String.format("INSERT INTO %s VALUES (0, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP())", Post.TABLE_NAME));
+            String sql = String.format("INSERT INTO %s(%s, %s, %s, %s, %s, %s, %s) VALUES (?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP())", 
+                    Post.TABLE_NAME, Post.RESPONSE_ID, Post.IS_RESPONSE, Post.NAME, Post.EMAIL, Post.TITLE, Post.CONTENT, Post.TIMESTAMP);
+            
+            PreparedStatement statement = connection.prepareStatement(sql);
+            
             statement.setString(1, parameters.get(Post.RESPONSE_ID)[0]);
             statement.setString(2, parameters.get(Post.IS_RESPONSE)[0]);
             statement.setString(3, parameters.get(Post.NAME)[0]);

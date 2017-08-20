@@ -19,14 +19,18 @@ public class Container implements ContainerInterface {
 
     private static ContainerInterface container = null;
 
-    static {
+    /*static {
         initializeContainer();
     }
 
     /**
      * Initialization of the container singleton
      */
-    private static void initializeContainer() {
+    public static void initializeContainer() {
+        if(null != container) {
+            return;
+        }
+        
         container = new Container();
         
         Enumeration keys = null;

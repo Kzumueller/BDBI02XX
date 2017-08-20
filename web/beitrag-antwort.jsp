@@ -4,19 +4,21 @@
     Author     : Kevin
 --%>
 
+<%@page import="com.zumueller.resources.Resource"%>
 <%@page import="com.zumueller.container.Container"%>
 <%@page import="com.zumueller.DBConnection"%>
 <%@page import="com.zumueller.Post"%>
 <%
     DBConnection connection = (DBConnection) Container.getContainer().get(DBConnection.class.getCanonicalName());
     Post originalPost = connection.getPostsByCondition(Post.ID, request.getParameter(Post.ID)).get(0);
+    Resource translations = (Resource) Container.getContainer().get(Resource.class.getCanonicalName());
 %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <%@include file="resources/head.html" %>
-        <title>Antworten</title>
+        <title><%= translations.get("respond") %></title>
     </head>
     <body>
         <h1>Auf Beitrag antworten</h1>
@@ -27,32 +29,32 @@
             
             <table>
                 <tr>
-                    <td><label for="name">Ihr Name </label></td>
+                    <td><label for="name"><%= translations.get("name") %>&nbsp;</label></td>
                     <td><input id="name" name="<%= Post.NAME %>" /></td>
                 </tr>
                 <tr>
-                    <td><label for="email">Ihre E-Mail-Adresse: </label></td>
+                    <td><label for="email"><%= translations.get("email") %>&nbsp;</label></td>
                     <td><input id="email" name="<%= Post.EMAIL %>" /></td>
                 </tr>
                 <tr>
-                    <td><label for="title">Titel-Zeile des Beitrags</label></td>
-                    <td><input id="title" name="<%= Post.TITLE %>" value="AW: <%= originalPost.getTitle() %>" /></td>
+                    <td><label for="title"><%= translations.get("title") %>&nbsp;</label></td>
+                    <td><input id="title" name="<%= Post.TITLE %>" value="<%= translations.get("respond.re") %>: <%= originalPost.getTitle() %>" /></td>
                 </tr>
                 <tr>
-                    <td><label for="content">Ihr Beitragstext</label></td>
+                    <td><label for="content"><%= translations.get("post") %>&nbsp;</label></td>
                     <td><textarea id="content" name="<%= Post.CONTENT %>" /></textarea></td>
                 </tr>
                 <tr>
                     <td>
-                        <button type="submit">Abschicken</button>
-                        <button type="reset">Löschen</button>
+                        <button><%= translations.get("button.submit") %></button>
+                        <button type="reset"><%= translations.get("button.reset") %></button>
                     </td>
                 </tr>
             </table>
             
             <hr />
             
-            <a href="index.jsp">Übersicht</a>
+            <a href="index.jsp"><%= translations.get("index") %></a>
         </form>
     </body>
 </html>

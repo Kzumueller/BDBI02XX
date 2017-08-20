@@ -26,11 +26,11 @@
             
             <table>
                 <tr>
-                    <td><label for="name"><%= translations.get("createPost.name") %>&nbsp;</label></td>
+                    <td><label for="name"><%= translations.get("name") %>:&nbsp;</label></td>
                     <td><input id="name" name="<%= Post.NAME %>" /></td>
                 </tr>
                 <tr>
-                    <td><label for="email"><%= translations.get("createPost.email") %>&nbsp;</label></td>
+                    <td><label for="email"><%= translations.get("email") %>:&nbsp;</label></td>
                     <td><input id="email" name="<%= Post.EMAIL %>" /></td>
                 </tr>
                 <tr>
@@ -42,7 +42,7 @@
                     <td><textarea id="content" name="<%= Post.CONTENT %>" /></textarea></td>
                 </tr>
                 <tr>
-                    <td><button type="submit">Speichern</button></td>
+                    <td><button type="submit"><%= translations.get("button.submit") %></button></td>
                 </tr>
             </table>
             

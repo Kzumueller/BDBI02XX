@@ -4,11 +4,13 @@
     Author     : Kevin
 --%>
 
+<%@page import="com.zumueller.resources.Resource"%>
 <%@page import="com.zumueller.container.Container"%>
 <%@page import="com.zumueller.DBConnection"%>
 <% 
     DBConnection connection = (DBConnection) Container.getContainer().get(DBConnection.class.getCanonicalName());
     boolean success = connection.insert(request.getParameterMap());
+    Resource translations = (Resource) Container.getContainer().get(Resource.class.getCanonicalName());
 %>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -16,15 +18,15 @@
 <html>
     <head>
         <%@include file="resources/head.html" %>
-        <title>Beitrag speichern</title>
+        <title><%= translations.get("savePost") %></title>
     </head>
     <body>
         <% if (success) { %>
-            <p>Vielen Dank für Ihren Beitrag!</p>
+            <p><%= translations.get("savePost.success") %></p>
         <% } else { %>
-            <p>Speichern war nicht erfolgreich, Ihr Beitrag ist für immer verloren!!</p>
+            <p><%= translations.get("savePost.ohNoes") %></p>
         <% } %>
         
-        <a href="index.jsp">Zum Forumsüberblick</a>
+        <a href="index.jsp"><%= translations.get("index") %></a>
     </body>
 </html>

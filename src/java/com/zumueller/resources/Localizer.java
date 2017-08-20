@@ -8,6 +8,7 @@ package com.zumueller.resources;
 import com.zumueller.container.Container;
 import com.zumueller.container.ContainerInterface;
 import com.zumueller.container.NoSuchEntryException;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -24,26 +25,30 @@ public class Localizer implements Resource {
     private Map<String, Map<String, String>> bundle = null;
     private ContainerInterface container = null;
 
+    /**
+     *
+     */
     public Localizer() {
         container = Container.getContainer();
         bundle = new HashMap();
         try {
-            String[] languages = ((String) container.get("languages")).split(",");
+            Properties languages = PropertiesParser.parseFile("languages.properties");
 
-            for (String language : languages) {
+            for(Object localizationLanguage : languages.values()) {
+                String language = (String) localizationLanguage;
                 Map<String, String> languageMap = new HashMap();
 
                 Properties properties = PropertiesParser.parseFile(String.format("%s.properties", language));
                 Enumeration keys = properties.keys();
                 Collection values = properties.values();
 
-                for (Object value : values) {
+                values.forEach((value) -> {
                     languageMap.put((String) keys.nextElement(), (String) value);
-                }
-                
+                });
+
                 bundle.put(language, languageMap);
             }
-        } catch (Exception exception) {
+        } catch (IOException exception) {
             System.err.println(exception.getMessage());
         }
     }
