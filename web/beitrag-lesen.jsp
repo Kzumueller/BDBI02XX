@@ -37,7 +37,9 @@
         <p><%= post.getContent() %></p>
         <hr />
         
-        <h2><%= translations.get("readPost.responses") %></h2>
+        <% if(responses.size() > 0){ %>
+            <h2><%= translations.get("readPost.responses") %></h2>
+        <% } %>
         
         <%for (Post responsePost : responses) {%>
             <div class="response__container">

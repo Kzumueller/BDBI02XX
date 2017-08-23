@@ -3,18 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Kevin/Documents/%23Studium_DMB/Datenbanken/B-Aufgabe/BDBI02XX/src/java/com/zumueller/container/Container.java</file>
-            <file>file:/C:/Users/Kevin/Documents/%23Studium_DMB/Datenbanken/B-Aufgabe/BDBI02XX/src/java/com/zumueller/resources/PropertiesParser.java</file>
-            <file>file:/C:/Users/Kevin/Documents/%23Studium_DMB/Datenbanken/B-Aufgabe/BDBI02XX/src/java/com/zumueller/Post.java</file>
             <file>file:/C:/Users/Kevin/Documents/%23Studium_DMB/Datenbanken/B-Aufgabe/BDBI02XX/web/beitrag-erstellen.jsp</file>
+            <file>file:/C:/Users/Kevin/Documents/%23Studium_DMB/Datenbanken/B-Aufgabe/BDBI02XX/web/beitrag-speichern.jsp</file>
             <file>file:/C:/Users/Kevin/Documents/%23Studium_DMB/Datenbanken/B-Aufgabe/BDBI02XX/src/java/com/zumueller/DBConnection.java</file>
+            <file>file:/C:/Users/Kevin/Documents/%23Studium_DMB/Datenbanken/B-Aufgabe/BDBI02XX/web/antwort-speichern.jsp</file>
             <file>file:/C:/Users/Kevin/Documents/%23Studium_DMB/Datenbanken/B-Aufgabe/BDBI02XX/web/WEB-INF/classes/de.properties</file>
-            <file>file:/C:/Users/Kevin/Documents/%23Studium_DMB/Datenbanken/B-Aufgabe/BDBI02XX/web/index.jsp</file>
             <file>file:/C:/Users/Kevin/Documents/%23Studium_DMB/Datenbanken/B-Aufgabe/BDBI02XX/web/WEB-INF/classes/dependencies.properties</file>
             <file>file:/C:/Users/Kevin/Documents/%23Studium_DMB/Datenbanken/B-Aufgabe/BDBI02XX/src/java/com/zumueller/resources/Localizer.java</file>
-            <file>file:/C:/Users/Kevin/Documents/%23Studium_DMB/Datenbanken/B-Aufgabe/BDBI02XX/src/java/com/zumueller/container/NoSuchEntryException.java</file>
-            <file>file:/C:/Users/Kevin/Documents/%23Studium_DMB/Datenbanken/B-Aufgabe/BDBI02XX/src/java/com/zumueller/resources/Resource.java</file>
-            <file>file:/C:/Users/Kevin/Documents/%23Studium_DMB/Datenbanken/B-Aufgabe/BDBI02XX/src/java/com/zumueller/container/ContainerInterface.java</file>
+            <file>file:/C:/Users/Kevin/Documents/%23Studium_DMB/Datenbanken/B-Aufgabe/BDBI02XX/web/beitrag-antwort.jsp</file>
+            <file>file:/C:/Users/Kevin/Documents/%23Studium_DMB/Datenbanken/B-Aufgabe/BDBI02XX/web/resources/head.html</file>
         </group>
     </open-files>
 </project-private>

@@ -26,7 +26,7 @@ public class Localizer implements Resource {
     private ContainerInterface container = null;
 
     /**
-     *
+     * initializes the resource bundle for use throughout the application
      */
     public Localizer() {
         container = Container.getContainer();

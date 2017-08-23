@@ -12,9 +12,11 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import javax.servlet.ServletRequest;
 
 /**
  * class for data base interactions
@@ -41,12 +43,12 @@ public class DBConnection {
         if (null == dbConnection) {
             dbConnection = connect();
         }
-        
+
         return dbConnection;
     }
 
     /**
-     *  method for setting up a DB connection
+     * method for setting up a DB connection
      *
      * @return java.sql.Connection
      */
@@ -68,9 +70,11 @@ public class DBConnection {
     }
 
     /**
-     * returns the stored prepared statement to select all posts, after preparing it if necessary
+     * returns the stored prepared statement to select all posts, after
+     * preparing it if necessary
+     *
      * @return
-     * @throws SQLException 
+     * @throws SQLException
      */
     public PreparedStatement getSelectAllStatement() throws SQLException {
         if (null == selectAllStatement) {
@@ -82,10 +86,9 @@ public class DBConnection {
 
         return selectAllStatement;
     }
-    
+
     /**
-     * retrieves all posts and returns them hydrated as a list of
-     * com.zumueller.Post
+     * retrieves all posts and returns them hydrated as a list of Post
      *
      * @return
      */
@@ -108,7 +111,10 @@ public class DBConnection {
      * returns a list of Posts where attribute = value for attribute names, see
      * class constants of Post
      * @see Post
-     * 
+     *
+     * once again parameterized SQL because value will likely come via GET
+     * request
+     *
      * @param attribute
      * @param value
      * @return
@@ -120,7 +126,8 @@ public class DBConnection {
             return new ArrayList();
         }
         try {
-            PreparedStatement statement = connection.prepareStatement(String.format("SELECT * FROM %s WHERE %s = %s", Post.TABLE_NAME, attribute, value));
+            PreparedStatement statement = connection.prepareStatement(String.format("SELECT * FROM %s WHERE %s = ?", Post.TABLE_NAME, attribute));
+            statement.setString(1, String.valueOf(value));
             ResultSet result = statement.executeQuery();
 
             return hydrate(result);
@@ -131,25 +138,30 @@ public class DBConnection {
     }
 
     /**
-     * extracts data from the provided Map and inserts it into the database
-     * uses parameterized SQL because SQL injections are bad
-     * @param parameters
+     * extracts data from the provided Map and inserts it into the database uses
+     * parameterized SQL because SQL injections are bad
+     * sets the generated key into the request as an attribute so it can be retrieved in the template - just a tiny bit hacky
+     *
+     * @param request
      * @return boolean
      */
-    public boolean insert(Map<String, String[]> parameters) {
+    public boolean insert(ServletRequest request) {
+        boolean success;
+        String generatedId;
+        ResultSet result;
         Connection connection = getConnection();
-        boolean success = true;
+        Map<String, String[]> parameters = request.getParameterMap();
 
         if (null == connection) {
             return false;
         }
 
         try {
-            String sql = String.format("INSERT INTO %s(%s, %s, %s, %s, %s, %s, %s) VALUES (?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)", 
+            String sql = String.format("INSERT INTO %s(%s, %s, %s, %s, %s, %s, %s) VALUES (?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)",
                     Post.TABLE_NAME, Post.RESPONSE_ID, Post.IS_RESPONSE, Post.NAME, Post.EMAIL, Post.TITLE, Post.CONTENT, Post.TIMESTAMP);
-            
-            PreparedStatement statement = connection.prepareStatement(sql);
-            
+
+            PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
             statement.setString(1, parameters.get(Post.RESPONSE_ID)[0]);
             statement.setString(2, parameters.get(Post.IS_RESPONSE)[0]);
             statement.setString(3, parameters.get(Post.NAME)[0]);
@@ -157,7 +169,11 @@ public class DBConnection {
             statement.setString(5, parameters.get(Post.TITLE)[0]);
             statement.setString(6, parameters.get(Post.CONTENT)[0]);
 
-            statement.execute();
+            success = 0 < statement.executeUpdate(); //returns affected rows
+            
+            (result = statement.getGeneratedKeys()).next(); //fun times
+            generatedId = result.getString(1);
+            request.setAttribute(Post.ID, generatedId);
         } catch (SQLException exception) {
             System.err.println("Could not insert post with message: " + exception.getMessage());
             success = false;
@@ -167,7 +183,7 @@ public class DBConnection {
     }
 
     /**
-     * hydrator function turning a ResultSet into a list of com.zumueller.Post
+     * hydrator function turning a ResultSet into a list of Post
      *
      * @param result
      * @return

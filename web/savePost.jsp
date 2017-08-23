@@ -9,8 +9,13 @@
 <%@page import="com.zumueller.DBConnection"%>
 <% 
     DBConnection connection = (DBConnection) Container.getContainer().get(DBConnection.class.getCanonicalName());
-    boolean success = connection.insert(request.getParameterMap());
+    boolean success = connection.insert(request);
     Resource translations = (Resource) Container.getContainer().get(Resource.class.getCanonicalName());
+    String backLinkId = request.getParameter("backLinkId");
+    
+    if("null".equals(backLinkId)) {
+        backLinkId = (String) request.getAttribute(Post.ID);
+    }
 %>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -29,9 +34,7 @@
         
         <div class="nav__button--bar">
             <div><a href="index.jsp"><%= translations.get("index") %></a></div>
-            <% if(!"null".equals(request.getParameter("backLinkId"))) { %>
-            <div><a href="beitrag-lesen.jsp?<%= Post.ID %>=${param.backLinkId}"><%= translations.get("savePost.backToPost") %></a></div>
-            <% } %>
+            <div><a href="beitrag-lesen.jsp?<%= Post.ID %>=<%= backLinkId %>"><%= translations.get("savePost.backToPost") %></a></div>
         </div>
     </body>
 </html>
