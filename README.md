@@ -17,10 +17,10 @@ Automatically instantiated objects can be retrieved at runtime using
 ```java
 com.zumueller.container.Container.getContainer().get(/*String key*/)
 ```  
-Or implement com.zumueller.container.ContainerInterface to create your own
+Or implement com.zumueller.container.ContainerInterface to create your own.
 
 ### Adding language support
 
 languages.properties holds all supported languages as a comma-separated value, the translations themselves are located in their respective files:  
 ISOCODE.properties, e.g. "en.properties".  
-The current/default language is currently held in the DI container via dependencies.properties
+The current/default language is currently held in the DI container via dependencies.properties.
