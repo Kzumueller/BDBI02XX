@@ -13,7 +13,7 @@
     Resource translations = (Resource) Container.getContainer().get(Resource.class.getCanonicalName());
     String backLinkId = request.getParameter("backLinkId");
     
-    if("null".equals(backLinkId)) {
+    if(null == backLinkId) {
         backLinkId = (String) request.getAttribute(Post.ID);
     }
 %>
