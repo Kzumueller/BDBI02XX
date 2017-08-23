@@ -7,7 +7,7 @@ There is also a rudimentary dependency injection container I've been playing aro
 
 ## Setup & Configuration
 
-This has never run productively but all it needs is an Apache Glassfish sever (similar JEE servers might well work)  
+This has never run productively but all it needs is a Glassfish sever (similar JEE servers might well work)  
 and a DB service (either Apache Derby or good old MySQL), URLs and credentials can be managed in dependencies.properties.
 
 ### Dependency Injection / Inversion of Control
