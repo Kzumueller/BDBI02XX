@@ -24,3 +24,11 @@ Or implement com.zumueller.container.ContainerInterface to create your own.
 languages.properties holds all supported languages as a comma-separated value, the translations themselves are located in their respective files:  
 ISOCODE.properties, e.g. "en.properties".  
 The current/default language is currently held in the DI container via dependencies.properties.
+
+### Environment
+
+Tested with:  
+* Glassfish 4.1.1
+* JDK 1.8 Update 144 (64bit)
+* Apache Derby 10.11.1.2
+* MariaDB 10.1.21
