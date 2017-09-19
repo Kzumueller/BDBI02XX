@@ -1,5 +1,7 @@
 # BDBI02XX
 
+_Rejoice, for this project has been marked 100%_
+
 A little project in the course of my B.Sc.  
 This beautifully named repo contains a forum using JSP, though I doubt anyone still uses that for new projects.  
 Some file names I did not choose so they are in German but the project features home-brewed localization.  
